@@ -3,30 +3,36 @@ import { site } from '../site.config.mjs';
 const action = site.subscribeFormAction;
 const feed = new URL('/rss.xml', Astro.site).href;
 ---
-<section class="subscribe" id="subscribe">
-  <div class="wrap">
-    {action ? (
-      <>
-        <div class="subscribe-text">
-          <h2>Get new posts by email</h2>
-          <p>Enter your email address to subscribe. You can also follow the <a href="/rss.xml">RSS feed</a>.</p>
-        </div>
-        <form action={action} method="post" target="_blank">
-          <label for="subscribe-email">Email address</label>
-          <div class="subscribe-row">
-            <input id="subscribe-email" type="email" name="email" placeholder="you@example.com" required />
-            <button type="submit">Subscribe</button>
-          </div>
-        </form>
-      </>
-    ) : (
-      <div class="subscribe-text">
-        <h2>Follow the publication</h2>
-        <p>
-          To get new posts, copy this address into a feed reader app such as Feedly or Inoreader:{' '}
-          <span style="user-select: all; color: var(--text)">{feed}</span>
-        </p>
+<div class="follow">
+  {action ? (
+    <form action={action} method="post" target="_blank">
+      <label for="subscribe-email">Get new posts by email</label>
+      <div class="follow-row">
+        <input id="subscribe-email" type="email" name="email" placeholder="you@example.com" required />
+        <button type="submit">Subscribe</button>
       </div>
-    )}
-  </div>
-</section>
+    </form>
+  ) : (
+    <>
+      <p>Follow in any feed reader app</p>
+      <button class="copy-feed" type="button" data-feed={feed}>Copy feed address</button>
+    </>
+  )}
+</div>
+<script is:inline>
+  (function () {
+    var btn = document.querySelector('.copy-feed');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var done = function () {
+        btn.textContent = 'Copied';
+        setTimeout(function () { btn.textContent = 'Copy feed address'; }, 2000);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(btn.dataset.feed).then(done, function () { location.href = '/rss.xml'; });
+      } else {
+        location.href = '/rss.xml';
+      }
+    });
+  })();
+</script>

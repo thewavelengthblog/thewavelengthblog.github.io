@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import Cover from '../components/Cover.astro';
+import Stars from '../components/Stars.astro';
+import PostCard from '../components/PostCard.astro';
+import { getPosts, sectionLabel } from '../lib/posts.js';
+
+const posts = await getPosts();
+const featured = posts.find((p) => p.data.featured) ?? posts[0];
+const latest = posts.filter((p) => p !== featured).slice(0, 9);
+---
+<Base>
+  {featured ? (
+    <section class="wrap hero">
+      <a class="hero-media" href={`/posts/${featured.id}/`} tabindex="-1" aria-hidden="true">
+        <Cover post={featured} eager />
+      </a>
+      <div class="hero-text">
+        <div class="label">Featured · {sectionLabel[featured.data.section]}</div>
+        <h1><a href={`/posts/${featured.id}/`}>{featured.data.title}</a></h1>
+        {featured.data.rating != null && <Stars rating={featured.data.rating} size={24} />}
+        {featured.data.excerpt && <p>{featured.data.excerpt}</p>}
+        <a class="btn-outline" href={`/posts/${featured.id}/`}>
+          {featured.data.section === 'movies' ? 'Read the review' : 'Read the essay'}
+        </a>
+      </div>
+    </section>
+  ) : (
+    <section class="wrap"><p class="empty">No posts yet. Write your first one at /admin.</p></section>
+  )}
+
+  {latest.length > 0 && (
+    <section class="wrap listing">
+      <div class="listing-head">
+        <h2>Latest</h2>
+        <a class="more-link" href="/movies/">All reviews</a>
+      </div>
+      <div class="grid">
+        {latest.map((post) => <PostCard post={post} />)}
+      </div>
+    </section>
+  )}
+</Base>

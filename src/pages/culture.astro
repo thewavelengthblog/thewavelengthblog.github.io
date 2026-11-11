@@ -1,0 +1,6 @@
+---
+import Listing from '../components/Listing.astro';
+import { getPosts } from '../lib/posts.js';
+const posts = (await getPosts()).filter((p) => p.data.section === 'culture');
+---
+<Listing title="Culture" intro="Essays on how people live now: habits, trends and arguments, on screen and off." posts={posts} />

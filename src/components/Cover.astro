@@ -1,0 +1,12 @@
+---
+import { sectionLabel } from '../lib/posts.js';
+import { isPortrait } from '../lib/images.js';
+const { post, eager = false } = Astro.props;
+const { cover, coverAlt, title, section } = post.data;
+const portrait = await isPortrait(cover);
+---
+{cover ? (
+  <img class:list={['cover', { portrait }]} src={cover} alt={coverAlt || title} loading={eager ? 'eager' : 'lazy'} />
+) : (
+  <div class="cover cover-empty" aria-hidden="true">{sectionLabel[section]}</div>
+)}

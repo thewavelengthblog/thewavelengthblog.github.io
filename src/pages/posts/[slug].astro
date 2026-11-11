@@ -1,0 +1,100 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Stars from '../../components/Stars.astro';
+import { getPosts, formatDate, tagSlug, sectionLabel } from '../../lib/posts.js';
+import { isPortrait } from '../../lib/images.js';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post, i) => ({
+    params: { slug: post.id },
+    // posts are newest first, so "next" is the newer one
+    props: { post, newer: posts[i - 1] ?? null, older: posts[i + 1] ?? null },
+  }));
+}
+
+const { post, newer, older } = Astro.props;
+const d = post.data;
+const { Content } = await render(post);
+const isReview = d.rating != null;
+const portrait = await isPortrait(d.cover);
+const details = [
+  ['Director', d.director],
+  ['Year', d.year],
+  ['Runtime', d.runtime],
+  ['Where I watched', d.watchedAt],
+].filter(([, value]) => value);
+const tags = d.tags.filter((t) => tagSlug(t));
+const subject = [d.filmTitle, d.year].filter(Boolean).join(' · ');
+---
+<Base title={d.title} description={d.excerpt ?? undefined} image={d.cover ?? undefined}>
+  <article data-pagefind-body>
+    <header class="narrow post-head">
+      <div class="label">
+        {d.section === 'movies' ? (isReview ? 'Movie review' : 'Movies') : sectionLabel[d.section]}
+      </div>
+      <h1>{d.title}</h1>
+      <div class="post-meta">
+        {isReview && <div><Stars rating={d.rating} size={24} /></div>}
+        {subject && <div>{subject}</div>}
+        {d.date && <div><time datetime={d.date.toISOString()}>{formatDate(d.date)}</time></div>}
+      </div>
+    </header>
+
+    {d.cover && (
+      <div class:list={['wrap', 'post-cover', { portrait }]}>
+        <img class="cover" src={d.cover} alt={d.coverAlt || d.title} />
+      </div>
+    )}
+
+    <div class="narrow post-layout">
+      <div class="post-main">
+        <div class="prose">
+          <Content />
+        </div>
+
+        {(d.verdict || isReview) && (
+          <div class="verdict">
+            <div class="verdict-score">
+              <span>Verdict</span>
+              {isReview && <Stars rating={d.rating} size={32} />}
+            </div>
+            {d.verdict && <p>{d.verdict}</p>}
+          </div>
+        )}
+
+        {tags.length > 0 && (
+          <ul class="tags" aria-label="Tags">
+            {tags.map((tag) => <li><a href={`/tags/${tagSlug(tag)}/`}>{tag}</a></li>)}
+          </ul>
+        )}
+      </div>
+
+      {details.length > 0 && (
+        <aside class="post-side">
+          <h2>Film details</h2>
+          <dl>
+            {details.map(([label, value]) => (
+              <div>
+                <dt>{label}</dt>
+                <dd>{value}</dd>
+              </div>
+            ))}
+          </dl>
+        </aside>
+      )}
+    </div>
+  </article>
+
+  <nav class="narrow post-nav" aria-label="More posts">
+    <div class="post-nav-inner">
+      {older ? (
+        <a href={`/posts/${older.id}/`}><span>Previous</span><strong>{older.data.title}</strong></a>
+      ) : <span></span>}
+      {newer && (
+        <a class="next" href={`/posts/${newer.id}/`}><span>Next</span><strong>{newer.data.title}</strong></a>
+      )}
+    </div>
+  </nav>
+</Base>

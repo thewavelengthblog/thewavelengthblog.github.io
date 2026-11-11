@@ -1,0 +1,21 @@
+---
+import Listing from '../../components/Listing.astro';
+import { getPosts, tagSlug } from '../../lib/posts.js';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  const tags = new Map();
+  for (const post of posts) {
+    for (const tag of post.data.tags) {
+      const slug = tagSlug(tag);
+      if (!slug) continue;
+      if (!tags.has(slug)) tags.set(slug, { name: tag, posts: [] });
+      tags.get(slug).posts.push(post);
+    }
+  }
+  return [...tags].map(([slug, { name, posts }]) => ({ params: { tag: slug }, props: { name, posts } }));
+}
+
+const { name, posts } = Astro.props;
+---
+<Listing title={name} intro={`Everything tagged "${name}".`} posts={posts} />

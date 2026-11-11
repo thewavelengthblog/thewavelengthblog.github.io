@@ -1,0 +1,17 @@
+---
+import Cover from './Cover.astro';
+import Stars from './Stars.astro';
+import { sectionLabel } from '../lib/posts.js';
+const { post } = Astro.props;
+const { title, section, rating, excerpt } = post.data;
+const href = `/posts/${post.id}/`;
+---
+<article class="card">
+  <a href={href} tabindex="-1" aria-hidden="true"><Cover post={post} /></a>
+  <div class="card-meta">
+    <span>{sectionLabel[section]}</span>
+    {rating != null ? <Stars rating={rating} size={15} /> : <span>Essay</span>}
+  </div>
+  <h3><a href={href}>{title}</a></h3>
+  {excerpt && <p>{excerpt}</p>}
+</article>

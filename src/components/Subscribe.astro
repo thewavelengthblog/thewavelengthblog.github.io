@@ -1,0 +1,32 @@
+---
+import { site } from '../site.config.mjs';
+const action = site.subscribeFormAction;
+const feed = new URL('/rss.xml', Astro.site).href;
+---
+<section class="subscribe" id="subscribe">
+  <div class="wrap">
+    {action ? (
+      <>
+        <div class="subscribe-text">
+          <h2>Get new posts by email</h2>
+          <p>Enter your email address to subscribe. You can also follow the <a href="/rss.xml">RSS feed</a>.</p>
+        </div>
+        <form action={action} method="post" target="_blank">
+          <label for="subscribe-email">Email address</label>
+          <div class="subscribe-row">
+            <input id="subscribe-email" type="email" name="email" placeholder="you@example.com" required />
+            <button type="submit">Subscribe</button>
+          </div>
+        </form>
+      </>
+    ) : (
+      <div class="subscribe-text">
+        <h2>Follow the blog</h2>
+        <p>
+          To get new posts, add this address to a feed reader app such as Feedly or Inoreader:{' '}
+          <a href="/rss.xml">{feed}</a>
+        </p>
+      </div>
+    )}
+  </div>
+</section>

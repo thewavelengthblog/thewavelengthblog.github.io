@@ -1,0 +1,54 @@
+# Editor settings. The repository name is filled in automatically when GitHub builds the site.
+backend:
+  name: github
+  repo: __REPOSITORY__
+  branch: main
+
+media_folder: public/uploads
+public_folder: /uploads
+
+collections:
+  - name: posts
+    label: Posts
+    label_singular: Post
+    folder: src/content/posts
+    extension: md
+    format: frontmatter
+    create: true
+    slug: '{{slug}}'
+    summary: '{{title}}'
+    sortable_fields: [date, title, rating]
+    fields:
+      - { name: title, label: Headline, widget: string }
+      - name: section
+        label: Section
+        widget: select
+        default: movies
+        options:
+          - { label: Movies, value: movies }
+          - { label: Culture, value: culture }
+      - { name: date, label: Date, widget: datetime, format: YYYY-MM-DD, time_format: false, default: '{{now}}' }
+      - { name: excerpt, label: Teaser, widget: text, required: false, hint: One or two sentences shown on the homepage and in search results. }
+      - { name: cover, label: Cover image, widget: image, required: false, hint: A wide image works best. Use only images you have the right to publish. }
+      - { name: coverAlt, label: Cover image description, widget: string, required: false }
+      - { name: rating, label: Star rating, widget: number, value_type: float, min: 0.5, max: 5, step: 0.5, required: false, hint: Out of 5. Half stars allowed. Leave empty for essays. }
+      - { name: filmTitle, label: Film title, widget: string, required: false }
+      - { name: year, label: Year, widget: string, required: false }
+      - { name: director, label: Director, widget: string, required: false }
+      - { name: runtime, label: Runtime, widget: string, required: false }
+      - { name: watchedAt, label: Where I watched, widget: string, required: false }
+      - { name: verdict, label: Verdict, widget: text, required: false, hint: One or two sentences shown in the verdict box. }
+      - { name: tags, label: Tags, widget: list, required: false, hint: 'For example the director, the genre, the country.' }
+      - { name: featured, label: Feature at the top of the homepage, widget: boolean, default: false, required: false }
+      - { name: draft, label: Draft (hidden from the site), widget: boolean, default: false, required: false }
+      - { name: body, label: Review, widget: markdown }
+
+  - name: pages
+    label: Pages
+    files:
+      - name: about
+        label: About
+        file: src/content/pages/about.md
+        fields:
+          - { name: title, label: Title, widget: string }
+          - { name: body, label: Text, widget: markdown }

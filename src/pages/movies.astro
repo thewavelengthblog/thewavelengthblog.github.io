@@ -1,0 +1,6 @@
+---
+import Listing from '../components/Listing.astro';
+import { getPosts } from '../lib/posts.js';
+const posts = (await getPosts()).filter((p) => p.data.section === 'movies');
+---
+<Listing title="Movies" intro="Film reviews, newest first." posts={posts} />

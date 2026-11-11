@@ -21,10 +21,10 @@ const feed = new URL('/rss.xml', Astro.site).href;
       </>
     ) : (
       <div class="subscribe-text">
-        <h2>Follow the blog</h2>
+        <h2>Follow the publication</h2>
         <p>
-          To get new posts, add this address to a feed reader app such as Feedly or Inoreader:{' '}
-          <a href="/rss.xml">{feed}</a>
+          To get new posts, copy this address into a feed reader app such as Feedly or Inoreader:{' '}
+          <span style="user-select: all; color: var(--text)">{feed}</span>
         </p>
       </div>
     )}

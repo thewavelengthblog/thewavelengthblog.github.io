@@ -116,7 +116,7 @@ img { max-width: 100%; display: block; }
 .empty { color: var(--soft); font-size: 17px; padding-block: 24px; }
 
 /* Subscribe */
-.subscribe { background: var(--panel); border-block: 1px solid var(--line); }
+.subscribe { background: var(--panel); border-top: 1px solid var(--line); }
 .subscribe .wrap {
   padding-block: 28px; display: flex; flex-wrap: wrap; gap: 24px 48px;
   align-items: center; justify-content: space-between;
@@ -137,7 +137,7 @@ img { max-width: 100%; display: block; }
   font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer;
 }
 
-/* Footer */
+/* Footer */ .site-footer { background: var(--panel); } .site-footer { background: var(--panel); }
 .site-footer .wrap {
   padding-block: 32px; display: flex; flex-wrap: wrap; justify-content: space-between;
   gap: 12px; font-size: 13px; color: var(--muted);

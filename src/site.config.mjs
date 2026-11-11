@@ -7,7 +7,7 @@ export const site = {
   // The full address of the live site, e.g. 'https://yourname.com'.
   url: 'https://example.com',
   // Your name as the author.
-  author: 'Your Name',
+  author: 'The Editor',
   // Email subscribe. Leave empty to show only the RSS link.
   // With a Buttondown account, set this to
   // 'https://buttondown.com/api/emails/embed-subscribe/YOUR_USERNAME'

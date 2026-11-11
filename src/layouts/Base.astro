@@ -64,12 +64,22 @@ const isCurrent = (href) => (path.startsWith(href) ? 'page' : undefined);
       <slot />
     </main>
 
-    <Subscribe />
-
-    <footer class="site-footer">
-      <div class="wrap">
+    <footer class="site-footer" id="subscribe">
+      <div class="wrap footer-main">
+        <div class="footer-brand">
+          <a class="footer-logo" href="/">{site.name}</a>
+          <p>Essays on culture and film reviews.</p>
+        </div>
+        <Subscribe />
+      </div>
+      <div class="wrap footer-base">
         <span>© {new Date().getFullYear()} {site.name}</span>
-        <span><a href="/movies/">Movies</a> · <a href="/culture/">Culture</a> · <a href="/rss.xml">RSS</a></span>
+        <nav aria-label="Footer">
+          <a href="/movies/">Movies</a>
+          <a href="/culture/">Culture</a>
+          <a href="/about/">About</a>
+          <a href="/search/">Search</a>
+        </nav>
       </div>
     </footer>
     <script is:inline>

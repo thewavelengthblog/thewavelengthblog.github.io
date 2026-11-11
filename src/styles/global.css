@@ -118,11 +118,11 @@ img { max-width: 100%; display: block; }
 /* Subscribe */
 .subscribe { background: var(--panel); border-block: 1px solid var(--line); }
 .subscribe .wrap {
-  padding-block: 56px; display: flex; flex-wrap: wrap; gap: 24px 48px;
+  padding-block: 28px; display: flex; flex-wrap: wrap; gap: 24px 48px;
   align-items: center; justify-content: space-between;
 }
 .subscribe-text { flex: 1 1 320px; display: flex; flex-direction: column; gap: 8px; }
-.subscribe h2 { margin: 0; font-family: var(--display); font-weight: 400; font-size: 44px; letter-spacing: 1.5px; }
+.subscribe h2 { margin: 0; font-family: var(--display); font-weight: 400; font-size: 30px; letter-spacing: 1.5px; }
 .subscribe p { margin: 0; font-size: 15px; color: var(--soft); }
 .subscribe p a { text-decoration: underline; }
 .subscribe form { flex: 1 1 360px; display: flex; flex-direction: column; gap: 8px; }

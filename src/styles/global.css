@@ -8,8 +8,28 @@
   --soft: #b9b7b0;
   --muted: #a9a9b2;
   --accent: #e8b34b;
+  --dim: #c9c7c0;
+  --star-off: #4a4a55;
+  --stripe-a: #1a1a20;
+  --stripe-b: #202027;
   --display: 'Bebas Neue', Impact, sans-serif;
   --sans: Inter, system-ui, sans-serif;
+}
+
+:root[data-theme='light'] {
+  --bg: #f6f4ee;
+  --panel: #ebe8df;
+  --line: #d9d5ca;
+  --line-strong: #b9b4a7;
+  --text: #17171c;
+  --body: #2b2b31;
+  --soft: #4a4a52;
+  --muted: #5f5f68;
+  --accent: #8a5d00;
+  --dim: #4a4a52;
+  --star-off: #c4bfb2;
+  --stripe-a: #e6e2d8;
+  --stripe-b: #dedacf;
 }
 
 * { box-sizing: border-box; }
@@ -20,7 +40,9 @@ body {
   color: var(--text);
   font-family: var(--sans);
   -webkit-font-smoothing: antialiased;
+  min-height: 100vh; display: flex; flex-direction: column;
 }
+main { flex: 1 0 auto; }
 a { color: var(--text); text-decoration: none; }
 a:hover { color: var(--accent); }
 img { max-width: 100%; display: block; }
@@ -45,6 +67,7 @@ img { max-width: 100%; display: block; }
   justify-content: space-between; gap: 16px 32px;
 }
 .logo { font-family: var(--display); font-size: 34px; letter-spacing: 2px; text-transform: uppercase; }
+@media (min-width: 900px) { .logo { margin-left: -20px; } }
 .nav {
   display: flex; flex-wrap: wrap; gap: 28px; font-size: 14px; font-weight: 500;
   letter-spacing: 1.5px; text-transform: uppercase;
@@ -55,7 +78,12 @@ img { max-width: 100%; display: block; }
 .icon-btn {
   width: 44px; height: 44px; border: 1px solid var(--line-strong); border-radius: 22px;
   display: flex; align-items: center; justify-content: center;
+  background: none; color: var(--text); padding: 0; cursor: pointer; font-family: inherit;
 }
+.icon-btn:hover { color: var(--accent); border-color: var(--accent); }
+.theme-toggle .sun { display: none; }
+:root[data-theme='light'] .theme-toggle .sun { display: block; }
+:root[data-theme='light'] .theme-toggle .moon { display: none; }
 .pill {
   height: 44px; padding: 0 20px; display: inline-flex; align-items: center;
   background: var(--accent); color: var(--bg); font-size: 14px; font-weight: 600;
@@ -65,15 +93,15 @@ img { max-width: 100%; display: block; }
 
 /* Stars */
 .stars { position: relative; display: inline-block; width: fit-content; align-self: flex-start; flex: none; line-height: 1; white-space: nowrap; letter-spacing: 0.15em; }
-.stars-off { color: #4a4a55; }
+.stars-off { color: var(--star-off); }
 .stars-on { position: absolute; left: 0; top: 0; overflow: hidden; color: var(--accent); }
 
 /* Cover images */
 .cover { width: 100%; object-fit: cover; background: var(--panel); }
 .cover-empty {
-  background: repeating-linear-gradient(135deg, #1a1a20 0 22px, #202027 22px 44px);
+  background: repeating-linear-gradient(135deg, var(--stripe-a) 0 22px, var(--stripe-b) 22px 44px);
   display: flex; align-items: flex-end; padding: 16px; font-size: 12px;
-  letter-spacing: 1px; text-transform: uppercase; color: #b5b5bd;
+  letter-spacing: 1px; text-transform: uppercase; color: var(--muted);
 }
 
 /* Homepage hero */
@@ -85,7 +113,7 @@ img { max-width: 100%; display: block; }
   margin: 0; font-family: var(--display); font-weight: 400;
   font-size: clamp(52px, 6.4vw, 84px); line-height: 0.95; letter-spacing: 1px; text-wrap: balance;
 }
-.hero-text p { margin: 0; font-size: 17px; line-height: 1.6; color: #c9c7c0; }
+.hero-text p { margin: 0; font-size: 17px; line-height: 1.6; color: var(--dim); }
 .btn-outline {
   align-self: flex-start; height: 48px; padding: 0 24px; display: inline-flex; align-items: center;
   border: 1px solid var(--text); font-size: 14px; font-weight: 600; letter-spacing: 1.5px;
@@ -103,7 +131,7 @@ img { max-width: 100%; display: block; }
 .page-head { padding-block: 56px 8px; display: flex; flex-direction: column; gap: 10px; }
 .page-title { font-size: clamp(56px, 7vw, 88px); line-height: 0.95; }
 .page-head p { margin: 0; color: var(--soft); font-size: 17px; }
-.more-link { font-size: 14px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: #c9c7c0; }
+.more-link { font-size: 14px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--dim); }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); gap: 40px 32px; }
 .card { display: flex; flex-direction: column; gap: 14px; }
 .card .cover, .card .cover-empty { aspect-ratio: 16 / 9; }
@@ -126,18 +154,18 @@ img { max-width: 100%; display: block; }
 .subscribe p { margin: 0; font-size: 15px; color: var(--soft); }
 .subscribe p a { text-decoration: underline; }
 .subscribe form { flex: 1 1 360px; display: flex; flex-direction: column; gap: 8px; }
-.subscribe label { font-size: 13px; font-weight: 500; color: #c9c7c0; }
+.subscribe label { font-size: 13px; font-weight: 500; color: var(--dim); }
 .subscribe-row { display: flex; flex-wrap: wrap; gap: 12px; }
 .subscribe input {
   flex: 1 1 220px; height: 48px; padding: 0 16px; background: var(--bg);
-  border: 1px solid #4a4a55; color: var(--text); font-size: 15px; font-family: inherit;
+  border: 1px solid var(--line-strong); color: var(--text); font-size: 15px; font-family: inherit;
 }
 .subscribe button {
   height: 48px; padding: 0 24px; background: var(--accent); color: var(--bg); border: 0;
   font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer;
 }
 
-/* Footer */ .site-footer { background: var(--panel); } .site-footer { background: var(--panel); }
+/* Footer */ .site-footer { background: var(--panel); }
 .site-footer .wrap {
   padding-block: 12px 20px; display: flex; flex-wrap: wrap; justify-content: space-between;
   gap: 12px; font-size: 13px; color: var(--muted);
@@ -217,11 +245,11 @@ img { max-width: 100%; display: block; }
 
 /* Search (Pagefind) */
 .search-box {
-  --pagefind-ui-primary: #e8b34b;
-  --pagefind-ui-text: #f2f0ea;
-  --pagefind-ui-background: #17171c;
-  --pagefind-ui-border: #3a3a43;
-  --pagefind-ui-tag: #2a2a31;
+  --pagefind-ui-primary: var(--accent);
+  --pagefind-ui-text: var(--text);
+  --pagefind-ui-background: var(--panel);
+  --pagefind-ui-border: var(--line-strong);
+  --pagefind-ui-tag: var(--line);
   --pagefind-ui-border-radius: 0px;
   --pagefind-ui-font: Inter, system-ui, sans-serif;
   padding-block: 16px 72px; max-width: 820px;

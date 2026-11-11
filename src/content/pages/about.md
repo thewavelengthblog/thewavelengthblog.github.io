@@ -2,4 +2,4 @@
 title: About
 ---
 
-Write a few lines about yourself and what this blog covers. You can edit this page from the editor at /admin, under Pages.
+The wavelength is a culture magazine which extensively covers all things movie and social culture related.

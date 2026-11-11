@@ -5,7 +5,7 @@ export const site = {
   // One line describing the blog (used by search engines and the RSS feed).
   description: 'Film reviews, and essays on how people live now.',
   // The full address of the live site, e.g. 'https://yourname.com'.
-  url: 'https://example.com',
+  url: 'https://readthewavelength.com',
   // Your name as the author.
   author: 'The Editor',
   // Email subscribe. Leave empty to show only the RSS link.

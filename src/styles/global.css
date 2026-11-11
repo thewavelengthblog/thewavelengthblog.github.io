@@ -132,6 +132,8 @@ img { max-width: 100%; display: block; }
 .page-head { padding-block: 56px 8px; display: flex; flex-direction: column; gap: 10px; }
 .page-title { font-size: clamp(56px, 7vw, 88px); line-height: 0.95; }
 .page-head p { margin: 0; color: var(--soft); font-size: 17px; }
+.wrap.page-head .page-title { font-size: clamp(44px, 5vw, 64px); }
+.page-head + .listing::before { content: ''; border-top: 1px solid var(--line-strong); }
 .more-link { font-size: 14px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--dim); }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); gap: 40px 32px; }
 .card { display: flex; flex-direction: column; gap: 14px; }
